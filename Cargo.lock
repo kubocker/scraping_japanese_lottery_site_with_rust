@@ -1052,6 +1052,7 @@ dependencies = [
 name = "scraping_japanese_lottery_site_with_rust"
 version = "0.1.0"
 dependencies = [
+ "html5ever",
  "reqwest",
  "scraper",
  "tokio",
