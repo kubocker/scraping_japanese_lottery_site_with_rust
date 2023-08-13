@@ -2,11 +2,13 @@ extern crate reqwest;
 extern crate scraper;
 extern crate html5ever;
 extern crate tokio;
+extern crate html2text;
 
 use scraper::{Html, Selector};
-use html5ever::serialize::{serialize, SerializeOpts};
+use html2text::from_read;
 use std::error::Error;
-use std::result::Result;
+use html_escape::decode_html_entities;
+use std::io::Cursor;
 
 // 返り値の型を仮定して定義
 type ReturnType = Vec<Vec<String>>;
@@ -36,27 +38,19 @@ pub async fn get_monthly_result(input_type: &str, input_monthly: &str) -> Result
             // 行内の各セルを処理
             for cell in row.select(&Selector::parse("td").unwrap()) {
                 let text = remove_html_tags(&cell.inner_html());
-                row_data.push(text);
+                let trimmed_text = text.trim_end_matches('\n').to_string();
+                row_data.push(trimmed_text);
             }
             data.push(row_data);
         }
     }
-
-    println!("{:?}", data);
-
-    println!("HTMLの取得とスクレイピングが完了しました。");
-    println!("End");
-
-    // スクレイピングデータを返す
     Ok(data)
+    // スクレイピングデータを返す
 }
 
 fn remove_html_tags(input: &str) -> String {
-    let mut output = Vec::new();
-    let _ = serialize(
-        &mut output,
-        &scraper::Html::parse_fragment(input),
-        SerializeOpts::default(), // SerializeOptsのインスタンスを作成するときに引数なしのdefault()を呼び出す
-    );
-    String::from_utf8_lossy(&output).to_string()
+    let decoded = decode_html_entities(input);
+    let cursor = Cursor::new(decoded.as_bytes());
+    let text = from_read(cursor, 80); // html2textを使用してHTMLタグを除去
+    text
 }

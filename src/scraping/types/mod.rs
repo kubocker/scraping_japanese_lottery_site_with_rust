@@ -51,9 +51,10 @@ pub struct Numbers3 {
 pub type Numbers4 = Numbers3;
 
 
+#[derive(Debug)]
 pub struct Loto6 {
-    no: String,
-    date: String,
-    figures: Loto6Figure,
-    results: Loto6Result,
+    pub no: String,
+    pub date: String,
+    // figures: Loto6Figure,
+    // results: Loto6Result,
 }

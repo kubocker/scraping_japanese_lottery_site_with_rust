@@ -14,8 +14,18 @@ pub struct Num3Lottery {}
 
 impl Scraping<Numbers3> for Num3Lottery {
     fn get_monthly_result(&self, month: &str) -> Vec<Numbers3> {
-        if let Err(err) = get_monthly_result("loto6", month) {
-            eprintln!("エラー: {}", err);
+        match get_monthly_result("loto6", month) {
+            Ok(data) => {
+                // データの取り出し
+                println!("{:?}", data);
+                // for v in data.into_iter() {
+                //     println!("{}", v):
+                // }
+            }
+            Err(error) => {
+                // エラーハンドリング
+                eprintln!("Error: {}", error);
+            }
         }
         vec![
             Numbers3 {
