@@ -1,11 +1,12 @@
-
 mod scraping;
-use scraping::Scraping;
+use scraping::Num3Lottery;
+
+use crate::scraping::Scraping;
 
 
 fn main() {
 
-    let num3_lottery = scraping::Num3Lottery {};
+    let num3_lottery = Num3Lottery {};
     let monthly_result = num3_lottery.get_monthly_result("202308");
     println!("Monthly Result: {:?}", monthly_result);
 

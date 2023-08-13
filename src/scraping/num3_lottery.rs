@@ -1,20 +1,17 @@
-mod utils;
-mod types;
 
-use utils::get_monthly_result;
-use types::Numbers3;
+use crate::scraping::traits::Scraping;
+use crate::scraping::types::Numbers3;
+use crate::scraping::utils::get_monthly_result;
 
-pub trait Scraping<T> {
-    fn get_monthly_result(&self, month: &str) -> Vec<T>;
-    fn get_daily_result(&self, date: &str) -> T;
-}
 
 #[derive(Debug)]
-pub struct Num3Lottery {}
+pub struct Num3Lottery;
+
+
 
 impl Scraping<Numbers3> for Num3Lottery {
     fn get_monthly_result(&self, month: &str) -> Vec<Numbers3> {
-        match get_monthly_result("loto6", month) {
+        match get_monthly_result("numbers3", month) {
             Ok(data) => {
                 // データの取り出し
                 println!("{:?}", data);
