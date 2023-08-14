@@ -1,6 +1,6 @@
 
-mod num3_lottery;
-mod num4_lottery;
+pub mod num3_lottery;
+pub mod num4_lottery;
 mod traits;
 mod types;
 mod utils;
