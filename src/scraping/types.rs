@@ -1,24 +1,32 @@
-// struct Figure {
-//     num1: i32,
-//     num2: String,
-// }
-
-// struct Result {
-//     num: i32,
-//     price: f64,
-// }
+#[derive(Debug)]
+pub struct Figure {
+    pub num1: i32,
+    pub num2: String,
+}
 
 
-// struct Numbers3Result {
-//     straights: Result,
-//     boxes: Result,
-//     sets: Numbers3ResultSet,
-// }
+#[derive(Debug)]
+pub struct Result {
+    // pub num: i32,
+    // pub price: f64,
+    pub num: String,
+    pub price: String,
+}
 
-// struct Numbers3ResultSet {
-//     straight: Result,
-//     boxes: Result,
-// }
+
+#[derive(Debug)]
+pub struct Numbers3Result {
+    pub straights: Result,
+    pub boxes: Result,
+    pub sets: Numbers3ResultSet,
+}
+
+#[derive(Debug)]
+pub struct Numbers3ResultSet {
+    pub straight: Result,
+    pub boxes: Result,
+    pub mini: Result,
+}
 
 
 // struct Loto6Figure {
@@ -44,8 +52,8 @@
 pub struct Numbers3 {
     pub no: String,
     pub date: String,
-    // figures: Figure,
-    // results: Numbers3Result,
+    pub figures: Figure,
+    pub results: Numbers3Result,
 }
 
 // pub type Numbers4 = Numbers3;

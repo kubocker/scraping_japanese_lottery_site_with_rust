@@ -11,7 +11,7 @@ use html_escape::decode_html_entities;
 use std::io::Cursor;
 
 // 返り値の型を仮定して定義
-type ReturnType = Vec<Vec<String>>;
+type ReturnType = Vec<Vec<Vec<String>>>;
 type ErrorType = Box<dyn Error>;
 
 #[tokio::main]
@@ -33,16 +33,27 @@ pub async fn get_monthly_result(input_type: &str, input_monthly: &str) -> Result
     let mut data = Vec::new();
     for table in fragment.select(&selector) {
         // テーブルの各行を処理
+
+        let mut d2 : Vec<Vec<String>>= Vec::new();
         for row in table.select(&Selector::parse("tr").unwrap()) {
             let mut row_data = Vec::new();
-            // 行内の各セルを処理
+
+            for cell in row.select(&Selector::parse("th").unwrap()) {
+                let text = remove_html_tags(&cell.inner_html());
+                let trimmed_text = text.trim_end_matches('\n').to_string();
+                if trimmed_text.contains("第") {
+                    row_data.push(trimmed_text);
+                }
+            }
+
             for cell in row.select(&Selector::parse("td").unwrap()) {
                 let text = remove_html_tags(&cell.inner_html());
                 let trimmed_text = text.trim_end_matches('\n').to_string();
                 row_data.push(trimmed_text);
             }
-            data.push(row_data);
+            d2.push(row_data);
         }
+        data.push(d2);
     }
     Ok(data)
     // スクレイピングデータを返す
@@ -53,4 +64,11 @@ fn remove_html_tags(input: &str) -> String {
     let cursor = Cursor::new(decoded.as_bytes());
     let text = from_read(cursor, 80); // html2textを使用してHTMLタグを除去
     text
+}
+
+
+// 金額の解析関数
+pub fn parse_price(price_str: &str) -> f64 {
+    let cleaned_str = price_str.replace("円", "").replace(",", "");
+    cleaned_str.parse().unwrap_or(0.0)
 }
