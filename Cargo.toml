@@ -1,6 +1,6 @@
 [package]
 name = "scraping_japanese_lottery_site"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["kubocker"]
 description = "Library to get Japanese Lottery Result with Numbers3, Numbers4 and Loto6"
 license = "MIT"

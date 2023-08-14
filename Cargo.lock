@@ -1072,7 +1072,7 @@ dependencies = [
 
 [[package]]
 name = "scraping_japanese_lottery_site"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "html-escape",
  "html2text",
