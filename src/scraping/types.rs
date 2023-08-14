@@ -7,10 +7,16 @@ pub struct Figure {
 
 #[derive(Debug)]
 pub struct Result {
-    // pub num: i32,
-    // pub price: f64,
     pub num: String,
     pub price: String,
+}
+
+
+#[derive(Debug)]
+pub struct Numbers3ResultSet {
+    pub straight: Result,
+    pub boxes: Result,
+    pub mini: Result,
 }
 
 
@@ -21,11 +27,19 @@ pub struct Numbers3Result {
     pub sets: Numbers3ResultSet,
 }
 
+
 #[derive(Debug)]
-pub struct Numbers3ResultSet {
+pub struct Numbers4ResultSet {
     pub straight: Result,
     pub boxes: Result,
-    pub mini: Result,
+}
+
+
+#[derive(Debug)]
+pub struct Numbers4Result {
+    pub straights: Result,
+    pub boxes: Result,
+    pub sets: Numbers4ResultSet,
 }
 
 
@@ -56,7 +70,13 @@ pub struct Numbers3 {
     pub results: Numbers3Result,
 }
 
-// pub type Numbers4 = Numbers3;
+#[derive(Debug)]
+pub struct  Numbers4 {
+    pub no: String,
+    pub date: String,
+    pub figures: Figure,
+    pub results: Numbers4Result,
+}
 
 
 #[derive(Debug)]
