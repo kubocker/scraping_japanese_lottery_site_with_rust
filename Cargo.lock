@@ -1071,7 +1071,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "scraping_japanese_lottery_site_with_rust"
+name = "scraping_japanese_lottery_site"
 version = "0.1.0"
 dependencies = [
  "html-escape",
